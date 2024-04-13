@@ -19,6 +19,7 @@ SET time_zone = "+00:00";
 
 -- 創建DB
 CREATE DATABASE testdb;
+USE testdb
 
 --
 -- 資料庫： `testdb`
@@ -35,11 +36,16 @@ CREATE TABLE `course` (
   `tid` varchar(30) NOT NULL,
   `dept_name` varchar(30) NOT NULL,
   `cname` varchar(30) NOT NULL,
-  `compulsory` varchar(30) NOT NULL,
+  `compulsory` tinyint(1) NOT NULL,
   `cgrade` varchar(30) NOT NULL,
   `credit` varchar(30) NOT NULL,
-  `capicity` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `capicity` varchar(30) NOT NULL,
+  PRIMARY KEY (`course_id`);
+) 
+
+
+
+
 
 -- --------------------------------------------------------
 
@@ -48,8 +54,11 @@ CREATE TABLE `course` (
 --
 
 CREATE TABLE `department` (
-  `dept_name` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `dept_name` varchar(30) NOT NULL,
+  PRIMARY KEY (`dept_name`);
+) 
+
+
 
 -- --------------------------------------------------------
 
@@ -59,12 +68,9 @@ CREATE TABLE `department` (
 
 CREATE TABLE `follows` (
   `sid` varchar(15) NOT NULL,
-  `course_id` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- 傾印資料表的資料 `follows`
---
+  `course_id` varchar(30) NOT NULL,
+  PRIMARY KEY (`sid`,`course_id`);
+) 
 
 
 
@@ -75,8 +81,11 @@ CREATE TABLE `follows` (
 --
 
 CREATE TABLE `location` (
-  `loc_name` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `loc_name` varchar(30) NOT NULL,
+  PRIMARY KEY (`loc_name`);
+) 
+
+
 
 -- --------------------------------------------------------
 
@@ -88,8 +97,11 @@ CREATE TABLE `section` (
   `sec_id` varchar(30) NOT NULL,
   `course_id` varchar(30) NOT NULL,
   `loc_name` varchar(30) NOT NULL,
-  `time_id` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `time_id` varchar(30) NOT NULL,
+  PRIMARY KEY (`sec_id`);
+) 
+
+
 
 -- --------------------------------------------------------
 
@@ -102,12 +114,11 @@ CREATE TABLE `student` (
   `dept_name` varchar(30) DEFAULT NULL,
   `sname` varchar(30) DEFAULT NULL,
   `sgrade` varchar(30) DEFAULT NULL,
-  `password` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `password` varchar(30) NOT NULL,
+  PRIMARY KEY (`sid`);
+) 
 
---
--- 傾印資料表的資料 `student`
---
+
 
 -- --------------------------------------------------------
 
@@ -117,8 +128,11 @@ CREATE TABLE `student` (
 
 CREATE TABLE `takes` (
   `sid` varchar(15) NOT NULL,
-  `course_id` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `course_id` varchar(30) NOT NULL,
+  PRIMARY KEY (`sid`,`course_id`);
+) 
+
+
 
 -- --------------------------------------------------------
 
@@ -128,9 +142,12 @@ CREATE TABLE `takes` (
 
 CREATE TABLE `teacher` (
   `tid` varchar(30) NOT NULL,
-  `dept_name` int(30) NOT NULL,
-  `tname` int(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `dept_name` varchar(30) NOT NULL,
+  `tname` varchar(30) NOT NULL,
+  PRIMARY KEY (`tid`);
+) 
+
+
 
 -- --------------------------------------------------------
 
@@ -139,62 +156,12 @@ CREATE TABLE `teacher` (
 --
 
 CREATE TABLE `time` (
-  `time_id` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- 已傾印資料表的索引
---
-
---
--- 資料表索引 `course`
---
-ALTER TABLE `course`
-  ADD PRIMARY KEY (`course_id`);
-
---
--- 資料表索引 `follows`
---
-ALTER TABLE `follows`
-  ADD PRIMARY KEY (`sid`,`course_id`);
-
---
--- 資料表索引 `location`
---
-ALTER TABLE `location`
-  ADD PRIMARY KEY (`loc_name`);
-
---
--- 資料表索引 `student`
---
-ALTER TABLE `student`
-  ADD PRIMARY KEY (`sid`);
-
---
--- 資料表索引 `takes`
---
-ALTER TABLE `takes`
-  ADD PRIMARY KEY (`sid`,`course_id`);
-
---
--- 資料表索引 `teacher`
---
-ALTER TABLE `teacher`
-  ADD PRIMARY KEY (`tid`);
-
---
--- 資料表索引 `time`
---
-ALTER TABLE `time`
-  ADD PRIMARY KEY (`time_id`);
-COMMIT;
-
-ALTER TABLE `course` CHANGE `compulsory` `compulsory` BOOLEAN NOT NULL;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+  `time_id` varchar(30) NOT NULL,
+  PRIMARY KEY (`time_id`);
+) 
 
 
-
---創建使用者，帳號: hj，密碼: test1234
+-- 創建使用者，帳號: hj，密碼: test1234
 CREATE USER 'hj'@'localhost' IDENTIFIED BY 'test1234';
 GRANT ALL PRIVILEGES ON `testdb` . * TO 'hj'@'localhost';
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
