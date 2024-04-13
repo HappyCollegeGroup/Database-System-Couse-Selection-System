@@ -1,24 +1,6 @@
--- phpMyAdmin SQL Dump
--- version 5.2.1
--- https://www.phpmyadmin.net/
---
--- 主機： 127.0.0.1
--- 產生時間： 2024-04-12 15:50:33
--- 伺服器版本： 10.4.32-MariaDB
--- PHP 版本： 8.2.12
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
 -- 創建DB
 CREATE DATABASE testdb;
+
 USE testdb;
 
 --
@@ -162,8 +144,6 @@ CREATE TABLE `time` (
 
 
 -- 創建使用者，帳號: hj，密碼: test1234
+-- https://oxygentw.net/blog/computer/new-mysql-user/
 CREATE USER 'hj'@'localhost' IDENTIFIED BY 'test1234';
 GRANT ALL PRIVILEGES ON `testdb` . * TO 'hj'@'localhost';
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
--- https://oxygentw.net/blog/computer/new-mysql-user/
