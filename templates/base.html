@@ -4,8 +4,57 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock %}</title>
+    <style>
+        /* Basic styling for the navigation bar */
+        .navbar {
+            display: flex; /* Use flexbox layout */
+            justify-content: space-between; /* Distribute space between elements */
+            align-items: center; /* Vertically center items */
+            background-color: #333; /* Dark background color */
+            font-family: Arial, sans-serif; /* Font style for the text */
+            padding: 0 10px; /* Padding on the sides */
+        }
+    
+        .personal-info {
+            color: white; /* Text color */
+        }
+    
+        /* Navigation links styling */
+        .navbar-content {
+            display: flex;
+            flex-grow: 1; /* Allows navbar-content to take up any available space */
+            justify-content: flex-end; /* Align links to the right */
+        }
+    
+        .navbar a {
+            color: white; /* Text color */
+            text-align: center;
+            padding: 14px 10px; /* Padding for each link */
+            text-decoration: none; /* Removes underline from links */
+        }
+    
+        /* Changes color on hover */
+        .navbar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+    </style>
 </head>
 <body>
+    <div class="navbar">
+        <div class="personal-info">
+            {% if session.sname %}
+                <span>{{session.username}} {{session.dept_name}} {{session.sname}} {{session.sgrade}}班</span>
+            {% else %}
+                <span>You haven't log in</span>
+            {% endif %}
+        </div>
+        <div class="navbar-content">
+            <a href={{ url_for('timetable.my_timetable') }}>加選</a>
+            <a href={{ url_for('courses.list_courses') }}>課表</a>
+            <a href={{ url_for('auth.logout') }}>登出</a>
+        </div>
+    </div>
     {% block content %}
     {% endblock %}
 </body>
