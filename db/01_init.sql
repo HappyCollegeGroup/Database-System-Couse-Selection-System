@@ -19,12 +19,12 @@ SET time_zone = "+00:00";
 
 -- 創建DB
 CREATE DATABASE testdb;
-USE testdb;
+USE testdb
 
 --
 -- 資料庫： `testdb`
 --
--- 創建TABLE
+
 -- --------------------------------------------------------
 
 --
@@ -40,8 +40,8 @@ CREATE TABLE `course` (
   `cgrade` varchar(30) NOT NULL,
   `credit` varchar(30) NOT NULL,
   `capicity` varchar(30) NOT NULL,
-  PRIMARY KEY (`course_id`);
-) 
+  PRIMARY KEY (`course_id`)
+);
 
 
 
@@ -55,8 +55,8 @@ CREATE TABLE `course` (
 
 CREATE TABLE `department` (
   `dept_name` varchar(30) NOT NULL,
-  PRIMARY KEY (`dept_name`);
-) 
+  PRIMARY KEY (`dept_name`)
+);
 
 
 
@@ -69,8 +69,8 @@ CREATE TABLE `department` (
 CREATE TABLE `follows` (
   `sid` varchar(15) NOT NULL,
   `course_id` varchar(30) NOT NULL,
-  PRIMARY KEY (`sid`,`course_id`);
-) 
+  PRIMARY KEY (`sid`,`course_id`)
+);
 
 
 
@@ -82,8 +82,8 @@ CREATE TABLE `follows` (
 
 CREATE TABLE `location` (
   `loc_name` varchar(30) NOT NULL,
-  PRIMARY KEY (`loc_name`);
-) 
+  PRIMARY KEY (`loc_name`)
+);
 
 
 
@@ -98,8 +98,8 @@ CREATE TABLE `section` (
   `course_id` varchar(30) NOT NULL,
   `loc_name` varchar(30) NOT NULL,
   `time_id` varchar(30) NOT NULL,
-  PRIMARY KEY (`sec_id`);
-) 
+  PRIMARY KEY (`sec_id`)
+);
 
 
 
@@ -115,8 +115,8 @@ CREATE TABLE `student` (
   `sname` varchar(30) DEFAULT NULL,
   `sgrade` varchar(30) DEFAULT NULL,
   `password` varchar(30) NOT NULL,
-  PRIMARY KEY (`sid`);
-) 
+  PRIMARY KEY (`sid`)
+);
 
 
 
@@ -129,8 +129,8 @@ CREATE TABLE `student` (
 CREATE TABLE `takes` (
   `sid` varchar(15) NOT NULL,
   `course_id` varchar(30) NOT NULL,
-  PRIMARY KEY (`sid`,`course_id`);
-) 
+  PRIMARY KEY (`sid`,`course_id`)
+);
 
 
 
@@ -144,8 +144,8 @@ CREATE TABLE `teacher` (
   `tid` varchar(30) NOT NULL,
   `dept_name` varchar(30) NOT NULL,
   `tname` varchar(30) NOT NULL,
-  PRIMARY KEY (`tid`);
-) 
+  PRIMARY KEY (`tid`)
+);
 
 
 
@@ -157,8 +157,8 @@ CREATE TABLE `teacher` (
 
 CREATE TABLE `time` (
   `time_id` varchar(30) NOT NULL,
-  PRIMARY KEY (`time_id`);
-) 
+  PRIMARY KEY (`time_id`)
+);
 
 
 -- 創建使用者，帳號: hj，密碼: test1234
