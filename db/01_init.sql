@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 
 -- 創建DB
 CREATE DATABASE testdb;
-USE testdb
+USE testdb;
 
 --
 -- 資料庫： `testdb`
