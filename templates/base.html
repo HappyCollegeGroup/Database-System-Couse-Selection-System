@@ -43,15 +43,11 @@
 <body>
     <div class="navbar">
         <div class="personal-info">
-            {% if session.sname %}
-                <span>{{session.username}} {{session.dept_name}} {{session.sname}} {{session.sgrade}}班</span>
-            {% else %}
-                <span>You haven't log in</span>
-            {% endif %}
+            <span>{{session.sid}} {{session.sname}} {{session.dept_name}} {{session.sgrade}}年級</span>
         </div>
         <div class="navbar-content">
-            <a href={{ url_for('timetable.my_timetable') }}>加選</a>
-            <a href={{ url_for('courses.list_courses') }}>課表</a>
+            <a href={{ url_for('courses.list_courses') }}>加選</a>
+            <a href={{ url_for('timetable.my_timetable') }}>課表</a>
             <a href={{ url_for('auth.logout') }}>登出</a>
         </div>
     </div>

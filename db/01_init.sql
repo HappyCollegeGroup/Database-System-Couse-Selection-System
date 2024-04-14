@@ -10,28 +10,6 @@ USE testdb;
 -- --------------------------------------------------------
 
 --
--- 資料表結構 `course`
---
-
-CREATE TABLE `course` (
-  `course_id` varchar(30) NOT NULL,
-  `tid` varchar(30) NOT NULL,
-  `dept_name` varchar(30) NOT NULL,
-  `cname` varchar(30) NOT NULL,
-  `compulsory` tinyint(1) NOT NULL,
-  `cgrade` varchar(30) NOT NULL,
-  `credit` varchar(30) NOT NULL,
-  `capicity` varchar(30) NOT NULL,
-  PRIMARY KEY (`course_id`)
-);
-
-
-
-
-
--- --------------------------------------------------------
-
---
 -- 資料表結構 `department`
 --
 
@@ -40,7 +18,69 @@ CREATE TABLE `department` (
   PRIMARY KEY (`dept_name`)
 );
 
+-- --------------------------------------------------------
 
+--
+-- 資料表結構 `student`
+--
+
+CREATE TABLE `student` (
+  `sid` varchar(15) NOT NULL,
+  `dept_name` varchar(30) NOT NULL,
+  `sname` varchar(30) NOT NULL,
+  `sgrade` int NOT NULL,
+  `password` varchar(30) NOT NULL,
+  PRIMARY KEY (`sid`),
+  FOREIGN KEY (`dept_name`) REFERENCES `department` (`dept_name`)
+);
+
+-- --------------------------------------------------------
+
+--
+-- 資料表結構 `teacher`
+--
+
+CREATE TABLE `teacher` (
+  `tid` varchar(30) NOT NULL,
+  `dept_name` varchar(30) NOT NULL,
+  `tname` varchar(30) NOT NULL,
+  PRIMARY KEY (`tid`),
+  FOREIGN KEY (`dept_name`) REFERENCES `department` (`dept_name`)
+);
+
+-- --------------------------------------------------------
+
+--
+-- 資料表結構 `course`
+--
+
+CREATE TABLE `course` (
+  `course_id` varchar(30) NOT NULL,
+  `tid` varchar(30) NOT NULL,
+  `dept_name` varchar(30) NOT NULL,
+  `cname` varchar(30) NOT NULL,
+  `compulsory` BOOLEAN NOT NULL,
+  `cgrade` int NOT NULL,
+  `credit` int NOT NULL,
+  `capicity` int NOT NULL,
+  PRIMARY KEY (`course_id`),
+  FOREIGN KEY (`tid`) REFERENCES `teacher` (`tid`),
+  FOREIGN KEY (`dept_name`) REFERENCES `department` (`dept_name`)
+);
+
+-- --------------------------------------------------------
+
+--
+-- 資料表結構 `takes`
+--
+
+CREATE TABLE `takes` (
+  `sid` varchar(15) NOT NULL,
+  `course_id` varchar(30) NOT NULL,
+  PRIMARY KEY (`sid`,`course_id`),
+  FOREIGN KEY (`sid`) REFERENCES `student` (`sid`),
+  FOREIGN KEY (`course_id`) REFERENCES `course` (`course_id`)
+);
 
 -- --------------------------------------------------------
 
@@ -51,10 +91,21 @@ CREATE TABLE `department` (
 CREATE TABLE `follows` (
   `sid` varchar(15) NOT NULL,
   `course_id` varchar(30) NOT NULL,
-  PRIMARY KEY (`sid`,`course_id`)
+  PRIMARY KEY (`sid`,`course_id`),
+  FOREIGN KEY (`sid`) REFERENCES `student` (`sid`),
+  FOREIGN KEY (`course_id`) REFERENCES `course` (`course_id`)
 );
 
+-- --------------------------------------------------------
 
+--
+-- 資料表結構 `time`
+--
+
+CREATE TABLE `time` (
+  `time_id` int NOT NULL,
+  PRIMARY KEY (`time_id`)
+);
 
 -- --------------------------------------------------------
 
@@ -67,8 +118,6 @@ CREATE TABLE `location` (
   PRIMARY KEY (`loc_name`)
 );
 
-
-
 -- --------------------------------------------------------
 
 --
@@ -79,67 +128,11 @@ CREATE TABLE `section` (
   `sec_id` varchar(30) NOT NULL,
   `course_id` varchar(30) NOT NULL,
   `loc_name` varchar(30) NOT NULL,
-  `time_id` varchar(30) NOT NULL,
-  PRIMARY KEY (`sec_id`)
-);
-
-
-
--- --------------------------------------------------------
-
---
--- 資料表結構 `student`
---
-
-CREATE TABLE `student` (
-  `sid` varchar(15) NOT NULL,
-  `dept_name` varchar(30) DEFAULT NULL,
-  `sname` varchar(30) DEFAULT NULL,
-  `sgrade` varchar(30) DEFAULT NULL,
-  `password` varchar(30) NOT NULL,
-  PRIMARY KEY (`sid`)
-);
-
-
-
--- --------------------------------------------------------
-
---
--- 資料表結構 `takes`
---
-
-CREATE TABLE `takes` (
-  `sid` varchar(15) NOT NULL,
-  `course_id` varchar(30) NOT NULL,
-  PRIMARY KEY (`sid`,`course_id`)
-);
-
-
-
--- --------------------------------------------------------
-
---
--- 資料表結構 `teacher`
---
-
-CREATE TABLE `teacher` (
-  `tid` varchar(30) NOT NULL,
-  `dept_name` varchar(30) NOT NULL,
-  `tname` varchar(30) NOT NULL,
-  PRIMARY KEY (`tid`)
-);
-
-
-
--- --------------------------------------------------------
-
---
--- 資料表結構 `time`
---
-
-CREATE TABLE `time` (
-  `time_id` varchar(30) NOT NULL,
-  PRIMARY KEY (`time_id`)
+  `time_id` int NOT NULL,
+  PRIMARY KEY (`sec_id`),
+  FOREIGN KEY (`course_id`) REFERENCES `course` (`course_id`),
+  FOREIGN KEY (`loc_name`) REFERENCES `location` (`loc_name`),
+  FOREIGN KEY (`time_id`) REFERENCES `time` (`time_id`)
 );
 
 
