@@ -1,5 +1,5 @@
-from flask import Blueprint
-from flask import render_template, request, flash, url_for, redirect
+from flask import Blueprint, session, render_template, request, flash, url_for, redirect
+import MySQLdb
 
 courses = Blueprint(
     "courses",
@@ -14,3 +14,8 @@ def list_courses():
     # 選課，需滿足加選條件
     
     return render_template("course.html")
+    pass
+
+@courses.route('/course/select/', methods=['POST'])
+def select_course():
+    pass
