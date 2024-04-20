@@ -6,4 +6,147 @@
 
 {% block content %}
 
+<h3>可選課程</h3>
+<table style="border-spacing: 10px;">
+    <tr style="text-align: left;">
+        <th>課程代號</th>
+        <th>課程名稱</th>
+        <th>老師</th>
+        <th>必修課</th>
+        <th>學分</th>
+        <th>地點</th>
+        <th>已選人數/可選人數</th>
+        <th>功能</th>
+    </tr>
+    {% for course in course_list %}
+        {% if course[8] == '<br><br><br>' %}
+            <tr>
+                <td>{{ course[0] }}</td>
+                <td>{{ course[1] }}</td>
+                <td>{{ course[2] }}</td>
+                {% if course[3] == 1 %}
+                <td>必修</td>
+                {% else %}
+                <td>選修</td>
+                {% endif %}
+                <td>{{ course[4] }}</td>
+                {% autoescape false %}
+                <td>{{ course[5] }}</td>
+                {% endautoescape %}
+                {% if course[6] != None %}
+                <td>{{course[6]}}/{{ course[7]}}</td>
+                {% else %}
+                <td>0/{{ course[7] }}</td>
+                {% endif %}
+                <td>
+                    <form action="/course/select/" method="post">
+                        <input type="hidden" name="course_id" value="{{ course[0] }}" />
+                        {% if course[6] == None or course[6] < course[7] %}
+                        <input type="submit" name="action" value="加選">
+                        {% else %}
+                        <input type="submit" name="action" value="關注">
+                        {% endif %}
+                    </form>
+                </td>
+            </tr>
+        {% endif %}
+    {% endfor %}
+</table>
+
+<hr>
+
+<h3>已關注課程</h3>
+<table style="border-spacing: 10px;">
+    <tr style="text-align: left;">
+        <th>課程代號</th>
+        <th>課程名稱</th>
+        <th>老師</th>
+        <th>必修課</th>
+        <th>學分</th>
+        <th>地點</th>
+        <th>已選人數/可選人數</th>
+        <th>功能</th>
+    </tr>
+    {% for course in course_list %}
+        {% if course[8] == '<br><br><br>已關注' %}
+            <tr>
+                <td>{{ course[0] }}</td>
+                <td>{{ course[1] }}</td>
+                <td>{{ course[2] }}</td>
+                {% if course[3] == 1 %}
+                <td>必修</td>
+                {% else %}
+                <td>選修</td>
+                {% endif %}
+                <td>{{ course[4] }}</td>
+                {% autoescape false %}
+                <td>{{ course[5] }}</td>
+                {% endautoescape %}
+                {% if course[6] != None %}
+                <td>{{course[6]}}/{{ course[7]}}</td>
+                {% else %}
+                <td>0/{{ course[7] }}</td>
+                {% endif %}
+                <td>
+                    <form action="/course/select/" method="post">
+                        <input type="hidden" name="course_id" value="{{ course[0] }}" />
+                        <input type="submit" name="action" value="取消關注">
+                    </form>
+                </td>
+            </tr>
+        {% endif %}
+    {% endfor %}
+</table>
+
+<hr>
+
+<h3>本系不可選課程</h3>
+<table style="border-spacing: 10px;">
+    <tr style="text-align: left;">
+        <th>課程代號</th>
+        <th>課程名稱</th>
+        <th>老師</th>
+        <th>必修課</th>
+        <th>學分</th>
+        <th>地點</th>
+        <th>已選人數/可選人數</th>
+        <th>原因</th>
+    </tr>
+    {% for course in course_list %}
+        {% if course[8] != '<br><br><br>' and course[8] != '<br><br><br>已關注' %}
+            <tr>
+                <td>{{ course[0] }}</td>
+                <td>{{ course[1] }}</td>
+                <td>{{ course[2] }}</td>
+                {% if course[3] == 1 %}
+                <td>必修</td>
+                {% else %}
+                <td>選修</td>
+                {% endif %}
+                <td>{{ course[4] }}</td>
+                {% autoescape false %}
+                <td>{{ course[5] }}</td>
+                {% endautoescape %}
+                {% if course[6] != None %}
+                <td>{{course[6]}}/{{ course[7]}}</td>
+                {% else %}
+                <td>0/{{ course[7] }}</td>
+                {% endif %}
+                {% autoescape false %}
+                <td>{{ course[8] }}</td>
+                {% endautoescape %}
+            </tr>
+        {% endif %}
+    {% endfor %}
+</table>
+
+<script>
+    window.onload = () => {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        if (urlParams.get('msg') != null) {
+            alert(urlParams.get('msg'));
+        }
+    }
+</script>
 {% endblock %}
