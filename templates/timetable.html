@@ -5,5 +5,118 @@
 {% endblock %}
 
 {% block content %}
+<style>
+    .container {
+        margin-top: 20px;
+    }
 
+    .table-container {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        text-align: left;
+    }
+
+    .table th,
+    .table td {
+        padding: 8px;
+        border: 1px solid #ddd;
+    }
+
+    .table th {
+        background-color: #f2f2f2;
+    }
+
+    .table tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    .btn-withdraw {
+        background-color: #dc3545;
+        color: #fff;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .btn-withdraw:hover {
+        background-color: #c82333;
+    }
+
+    .table-container {
+        margin-left: 0;
+    }
+
+    .total-credit {
+        margin-top: 20px;
+    }
+</style>
+
+<div class="container">
+    <h1 class="text-center">我的課表</h1>
+    {% for message in get_flashed_messages(with_categories=true) %}
+    <div class="alert alert-{{ message[1] }}" role="alert">
+        {{ message[0] }}
+    </div>
+    {% endfor %}
+    <div class="total-credit">
+        <p>總學分：{{ total_credit }}</p>
+    </div>
+    <div class="table-container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>時間</th>
+                    <th>課程代號</th>
+                    <th>課程名稱</th>
+                    <th>老師姓名</th>
+                    <th>課程地點</th>
+                    <th>必選修</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for course in table %}
+                <tr>
+                    <td>{{ course[0] }}</td>
+                    <td>{{ course[1] }}</td>
+                    <td>{{ course[2] }}</td>
+                    <td>{{ course[3] }}</td>
+                    <td>{{ course[4] }}</td>
+                    <td>{{ "必修" if course[5] else "選修" }}</td>
+                    <td>
+                        <form action="{{ url_for('timetable.withdraw_course', course_id=course[1]) }}" method="post" {%
+                            if course[5] %} onsubmit="return confirmWithdraw()" {% endif %}>
+                            <button type="submit" class="btn-withdraw">退選</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    function confirmWithdraw() {
+        return confirm('此課程為必修，確定要退選此課程嗎？');
+    }
+
+
+    window.onload = () => {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        if (urlParams.get('msg') != null) {
+            alert(urlParams.get('msg'));
+        }
+    }
+
+</script>
 {% endblock %}
