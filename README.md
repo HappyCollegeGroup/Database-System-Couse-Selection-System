@@ -5,12 +5,12 @@
 2. 以系統管理員身分執行 `XAMPP Control Panel`
 3. 按下 `Apache` 和 `MySQL` 的 `Start`
 4. 按下 `MySQL` 的 `Admin` 開啟 phpMyAdmin 介面
-5. 進入資料庫 `testdb` 並匯入 `db/01_init.sql`
-6. 進入資料庫 `testdb` 並匯入 `db/02_data.sql`
-7. 進入資料庫 `testdb` 並匯入 `db/03_preselection.sql`
+5. 匯入 `db/01_init.sql`
+6. 匯入 `db/02_data.sql`
+7. 匯入 `db/03_preselection.sql`
 
 ## 選課系統
-1. 開啟指令界面，並切換至 `選課系統` 資料夾
+1. 開啟指令界面，並切換至資料夾
 2. 安裝所需套件
     ```bash
     pip3 install -r requirements.txt
