@@ -103,7 +103,7 @@ CREATE TABLE `follows` (
 --
 
 CREATE TABLE `time` (
-  `time_id` int NOT NULL,
+  `time_id` varchar(30) NOT NULL,
   PRIMARY KEY (`time_id`)
 );
 
@@ -128,7 +128,7 @@ CREATE TABLE `section` (
   `sec_id` varchar(30) NOT NULL,
   `course_id` varchar(30) NOT NULL,
   `loc_name` varchar(30) NOT NULL,
-  `time_id` int NOT NULL,
+  `time_id` varchar(30) NOT NULL,
   PRIMARY KEY (`sec_id`),
   FOREIGN KEY (`course_id`) REFERENCES `course` (`course_id`),
   FOREIGN KEY (`loc_name`) REFERENCES `location` (`loc_name`),
