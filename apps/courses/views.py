@@ -27,9 +27,9 @@ def list_courses():
                            db="testdb")
 
     course_query = f"""
-        SELECT course_id, cname, tname, compulsory, credit, GROUP_CONCAT(CONCAT(time_id, " ", loc_name) SEPARATOR '<br>') AS Time, IFNULL(TakeCount, 0), capicity, CONCAT(COALESCE(Duplicate_Time, ''), '<br>', COALESCE(Duplicate_Name, ''), '<br>', COALESCE(More_Credit, ''), '<br>', COALESCE(Follows, '')) AS reason 
+        SELECT course_id, cname, tname, compulsory, credit, GROUP_CONCAT(CONCAT(time_id, " ", loc_name) SEPARATOR '<br>') AS Time, IFNULL(TakeCount, 0), capicity, CONCAT(COALESCE(Duplicate_Time, ''), '<br>', COALESCE(Duplicate_Name, ''), '<br>', COALESCE(More_Credit, ''), '<br>', COALESCE(Follows, '')) AS reason, cgrade 
         FROM
-            (SELECT course_id, cname, tname, compulsory, credit, TakeCount, capicity,
+            (SELECT course_id, cname, tname, compulsory, credit, TakeCount, capicity, cgrade,
                     CASE
                         WHEN (
                             SELECT COUNT(*) FROM section 
